@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { environment } from '../../environments/environment.development';
+import firebase from "firebase/compat";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
 
-  private backend: FirebaseApp;
+  private readonly backend: FirebaseApp;
 
   constructor() {
     const firebaseConfig = {
@@ -24,14 +25,14 @@ export class FirebaseService {
   }
 
   test() {
-    console.log(this.backend);
+    console.log('Firebase service works!');
   }
 
   registerUser(email: string, password: string) {
     const auth = getAuth(this.backend);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed up 
+        // Signed up
         const user = userCredential.user;
         // ...
       })
@@ -46,7 +47,7 @@ export class FirebaseService {
     const auth = getAuth(this.backend);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in 
+        // Signed in
         const user = userCredential.user;
         // ...
       })
