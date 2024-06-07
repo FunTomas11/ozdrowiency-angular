@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { environment } from '../../environments/environment.development';
-import firebase from "firebase/compat";
+import {AuthService} from "./auth.service";
+import {User} from "firebase/auth";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class FirebaseService {
 
   private readonly backend: FirebaseApp;
 
-  constructor() {
+  constructor(private _authService: AuthService) {
     const firebaseConfig = {
       apiKey: environment.firebaseApiKey,
       authDomain: environment.authDomain,
@@ -33,7 +34,8 @@ export class FirebaseService {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed up
-        const user = userCredential.user;
+        const user: User = userCredential.user;
+        this._authService.setUser(user);
         // ...
       })
       .catch((error) => {

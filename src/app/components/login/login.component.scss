@@ -1,0 +1,26 @@
+.container {
+  width: 100%;
+  height: calc(100% - 64px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  h4 {
+    margin-bottom: 20px;
+  }
+}
+
+.content {
+  width: 400px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+}

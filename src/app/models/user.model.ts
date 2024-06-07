@@ -1,10 +1,12 @@
-export interface User {
-  id: string,
-  email: string,
-  password: string,
-  name: string,
-  surname: string
-}
+import {User} from "firebase/auth";
+
+// export interface User {
+//   id: string,
+//   email: string,
+//   password: string,
+//   name: string,
+//   surname: string
+// }
 
 export interface Doctor extends User {
   specialization: string,
