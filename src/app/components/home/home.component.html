@@ -1,1 +1,8 @@
-<p>home works!</p>
+@switch (user.role) {
+  @case(UserRole.Doctor) {
+    <app-therapist [user]="user"/>
+  }
+  @case (UserRole.Patient) {
+    <app-patient [user]="user"/>
+  }
+}

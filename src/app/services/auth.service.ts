@@ -6,7 +6,7 @@ import {User} from "firebase/auth";
 })
 export class AuthService {
   // private _user: User | null | any = null;
-  private _user: User | null | any = {email: '', password: '', name: '', surname: ''};
+  private _user: User | null | any = {email: '', password: '', name: 'Jane', surname: 'Doe'};
 
   constructor() {}
 

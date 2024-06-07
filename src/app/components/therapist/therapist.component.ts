@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {UserAbstract} from "../../abstract/user.abstract";
+import {UserDetails} from "../../models/user.model";
 
 @Component({
   selector: 'app-therapist',
@@ -7,6 +9,7 @@ import { Component } from '@angular/core';
   templateUrl: './therapist.component.html',
   styleUrl: './therapist.component.scss'
 })
-export class TherapistComponent {
+export class TherapistComponent implements UserAbstract {
+  @Input() user!: UserDetails;
 
 }
