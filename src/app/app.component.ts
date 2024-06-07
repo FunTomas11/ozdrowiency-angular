@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FirebaseService } from './services/firebase.service';
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
-import {LoginComponent} from "./login/login.component";
+import {LoginComponent} from "./components/login/login.component";
 
 @Component({
   selector: 'app-root',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import { FirebaseService } from '../services/firebase.service';
+import { FirebaseService } from '../../services/firebase.service';
 import {MatDialogModule} from "@angular/material/dialog";
 import {CommonModule} from "@angular/common";
 import {MatInputModule} from "@angular/material/input";
