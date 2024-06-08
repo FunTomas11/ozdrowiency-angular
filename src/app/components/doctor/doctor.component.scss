@@ -1,4 +1,23 @@
+:host {
+  display: flex;
+  width: 100%;
+}
+
 .label {
   font-size: 16px;
   font-weight: 500;
+}
+
+.patients {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 24px;
+  max-height: 80%;
+  width: 70%;
+}
+
+.result {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }

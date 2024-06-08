@@ -1,6 +1,38 @@
 <app-user-area [user]="user">
   <span>
     <span class="label">Specialization: </span>
-    {{user["specialization"]}}
+    {{ user["specialization"] }}
   </span>
 </app-user-area>
+<div class="patients">
+  <h2>Patients assigned to you</h2>
+  <mat-accordion>
+    @for (patient of patients$ | async; track patient.id) {
+      <mat-expansion-panel [disabled]="!isPatientScored(patient.id)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ patient.surname }} {{ patient.name }}
+          </mat-panel-title>
+          <mat-panel-description>
+            @if (isPatientScored(patient.id)) {
+              <span>Avg score: </span>
+              <span>{{ getPatientAvgScore(patient.id) }}</span>
+            } @else {
+              <span>Patient has not sent any replies yet</span>
+            }
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        @if (isPatientScored(patient.id)) {
+          @for (answer of getPatientAnswers(patient.id); track answer.id) {
+            <p class="result">
+              <span>{{ answer.date | date }}</span>
+              <span>Score: {{ answer.score }}</span>
+            </p>
+          }
+        }
+      </mat-expansion-panel>
+    } @empty {
+      <span>You have no assigned patients yet</span>
+    }
+  </mat-accordion>
+</div>
