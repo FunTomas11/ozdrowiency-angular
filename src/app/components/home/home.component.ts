@@ -1,38 +1,44 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {User} from "firebase/auth";
 import {UserService} from "../../services/user.service";
-import {UserDetails, UserRole} from "../../models/user.model";
-import {TherapistComponent} from "../therapist/therapist.component";
+import {GenericUser, UserRole} from "../../models/user.model";
 import {PatientComponent} from "../patient/patient.component";
+import {DoctorComponent} from "../doctor/doctor.component";
+import {Router} from "@angular/router";
+import {Observable} from "rxjs";
+import {AsyncPipe} from "@angular/common";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    TherapistComponent,
-    PatientComponent
+    DoctorComponent,
+    PatientComponent,
+    AsyncPipe,
+    MatProgressSpinner
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  protected readonly UserRole = UserRole;
 
-  private _user: UserDetails;
-
-  get user(): UserDetails {
+  get user(): Observable<GenericUser> {
     return this._user;
   }
 
-  constructor(private _auth: AuthService, private _service: UserService) {
-    this._user = {email: '', id: '', name: '', password: '', surname: '', role: ''};
+  private _user!: Observable<GenericUser>;
+
+  constructor(private _auth: AuthService, private _service: UserService, _router: Router) {
     const userData: User | null = this._auth.getUser();
     if (userData) {
-      this._service.getUserDetails(userData.uid).subscribe((user: UserDetails) => {
-        this._user = user;
-      });
+      this._user = this._service.getUserDetails(userData.uid);
+    } else {
+      _router.navigate(['/login']);
+      throw new Error('User not logged in');
     }
   }
 
-  protected readonly UserRole = UserRole;
 }

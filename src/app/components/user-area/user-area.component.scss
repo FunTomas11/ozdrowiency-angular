@@ -1,0 +1,53 @@
+.user-area {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  margin: 24px;
+  width: fit-content;
+
+  &__prim-info {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 6px 6px 6px 0;
+  }
+
+  &__sec-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 22px;
+    .label {
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+}
+
+.surname {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.name {
+  font-size: 16px;
+  margin-left: 4px;
+}
+
+.name, .surname {
+  margin-bottom: 6px;
+}
+
+.role {
+  margin-right: 4px;
+  font-size: 18px;
+
+}
+
+.icon {
+  font-size: 128px;
+  width: 128px;
+  height: 128px;
+  font-weight: 100;
+  color: #16bdff;
+}
+
+

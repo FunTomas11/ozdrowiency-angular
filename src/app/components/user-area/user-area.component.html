@@ -1,0 +1,33 @@
+<div class="user-area">
+  <mat-icon class="material-symbols-outlined icon" [matTooltip]="user.role" [matTooltipPosition]="'above'">
+    @switch (user.role) {
+      @case (UserRole.Doctor) {
+        <span>account_circle</span>
+      }
+      @case (UserRole.Patient) {
+        <span>person</span>
+      }
+    }
+  </mat-icon>
+  <div class="user-area__prim-info">
+    <span class="role">
+      @switch (user.role) {
+        @case (UserRole.Doctor) {
+          <span>Doctor</span>
+        }
+        @case (UserRole.Patient) {
+          <span>Patient</span>
+        }
+      }
+      <span>: </span>
+    </span>
+    <span class="surname">{{ user.surname }}</span>
+    <span class="name">{{ user.name }}</span>
+  </div>
+  <div class="user-area__sec-info">
+    <ng-content />
+    <span class="id"><span class="label">Unique user ID: </span>{{ user.id }}</span>
+    <span class="email"><span class="label">Email: </span>{{ user.email }}</span>
+    <span class="phone"><span class="label">Phone: </span>{{ user.phone }}</span>
+  </div>
+</div>

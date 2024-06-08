@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from "firebase/auth";
 
 @Injectable({
@@ -6,7 +6,7 @@ import {User} from "firebase/auth";
 })
 export class AuthService {
   // private _user: User | null | any = null;
-  private _user: User | null | any = {email: '', password: '', name: 'Jane', surname: 'Doe'};
+  private _user: User | null | any = { uid: '4'};
 
   constructor() {}
 

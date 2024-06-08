@@ -1,8 +1,12 @@
-@switch (user.role) {
-  @case(UserRole.Doctor) {
-    <app-therapist [user]="user"/>
+@if (user | async; as user) {
+  @switch (user.role) {
+    @case (UserRole.Doctor) {
+      <app-doctor [user]="user"/>
+    }
+    @case (UserRole.Patient) {
+      <app-patient [user]="user"/>
+    }
   }
-  @case (UserRole.Patient) {
-    <app-patient [user]="user"/>
-  }
+} @else {
+  <mat-spinner></mat-spinner>
 }

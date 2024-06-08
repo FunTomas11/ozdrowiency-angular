@@ -1,1 +1,16 @@
-<p>patient works!</p>
+<app-user-area [user]="user">
+  <span>
+    <span class="label">PESEL: </span>
+    <span>{{user["pesel"]}}</span>
+  </span>
+  <span>
+    <span class="label">Date of birth: </span>
+    <span>{{user["dateOfBirth"] | date}}</span>
+  </span>
+  @if (doctor | async; as doctor) {
+    <span>
+    <span class="label">Doctor's name: </span>
+    <span>{{ doctor.surname }} {{doctor.name}}</span>
+  </span>
+  }
+</app-user-area>

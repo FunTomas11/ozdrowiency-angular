@@ -4,22 +4,23 @@ export interface UserDetails {
   password: string,
   name: string,
   surname: string
-  role: string
+  role: UserRole
+  phone: string
 }
 
 export interface Doctor extends UserDetails {
   specialization: string,
-  phone: string
 }
 
 export interface Patient extends UserDetails {
   pesel: string,
-  phone: string,
   dateOfBirth: string
+  doctorId: string
 }
 
 export enum UserRole {
-  ADMIN = 'admin',
   Doctor = 'doctor',
   Patient = 'patient'
 }
+
+export type GenericUser = Doctor | Patient;

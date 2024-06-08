@@ -1,16 +1,19 @@
-import { Injectable } from '@angular/core';
-import {Observable, of} from "rxjs";
-import {UserDetails} from "../models/user.model";
+import {Injectable} from '@angular/core';
+import {Observable} from "rxjs";
+import {GenericUser} from "../models/user.model";
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment.development";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor() { }
+  private readonly _apiUrl = environment.apiUrl;
 
-  getUserDetails(userId: string): Observable<UserDetails> {
-    const user: UserDetails = {email: "johndoe@example.com", id: "2", name: "John", password: "", surname: "Doe", role: "doctor"};
-    return of(user);
+  constructor(private _http: HttpClient) { }
+
+  getUserDetails(userId: string): Observable<GenericUser> {
+    return this._http.get<GenericUser>(`${this._apiUrl}/users/${userId}`);
   }
 }
