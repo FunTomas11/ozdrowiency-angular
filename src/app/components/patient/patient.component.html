@@ -1,16 +1,35 @@
 <app-user-area [user]="user">
   <span>
     <span class="label">PESEL: </span>
-    <span>{{user["pesel"]}}</span>
+    <span>{{ user["pesel"] }}</span>
   </span>
   <span>
     <span class="label">Date of birth: </span>
-    <span>{{user["dateOfBirth"] | date}}</span>
+    <span>{{ user["dateOfBirth"] | date }}</span>
   </span>
-  @if (doctor | async; as doctor) {
+  @if (doctor$ | async; as doctor) {
     <span>
     <span class="label">Doctor's name: </span>
-    <span>{{ doctor.surname }} {{doctor.name}}</span>
+    <span>{{ doctor.surname }} {{ doctor.name }}</span>
   </span>
   }
 </app-user-area>
+<div class="questions" cdkScrollable>
+  <h2>Please answer the following questions</h2>
+  <p class="info">
+    Please assess your condition and answer 20 questions to verify your health.
+    Each question should be answered with a response on a scale of 0 to 10 where 0 - least corresponds to my condition
+    and 10 - most corresponds to my condition by moving the slider.
+    When finished, confirm the results with the “Approve” button.
+  </p>
+  @for (question of answers; track question.id) {
+    <div class="question">
+      <label>{{ question.content }}</label>
+      <mat-slider min="0" max="10" step="1" discrete>
+        <input matSliderThumb [(ngModel)]="question.answer">
+      </mat-slider>
+    </div>
+  }
+
+  <button mat-raised-button color="primary" (click)="approve()">Approve</button>
+</div>

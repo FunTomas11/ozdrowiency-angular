@@ -111,6 +111,197 @@
       "doctorId": "9"
     }
   ],
-  "questions": [],
-  "answers": []
+  "questions": [
+    {
+      "id": "1",
+      "content": "How would you rate your overall pain today?"
+    },
+    {
+      "id": "2",
+      "content": "How would you rate your level of fatigue today?"
+    },
+    {
+      "id": "3",
+      "content": "How would you rate your mood today?"
+    },
+    {
+      "id": "4",
+      "content": "How would you rate your ability to perform daily activities?"
+    },
+    {
+      "id": "5",
+      "content": "How would you rate your sleep quality last night?"
+    },
+    {
+      "id": "6",
+      "content": "How would you rate your appetite today?"
+    },
+    {
+      "id": "7",
+      "content": "How would you rate your level of anxiety today?"
+    },
+    {
+      "id": "8",
+      "content": "How would you rate your level of nausea today?"
+    },
+    {
+      "id": "9",
+      "content": "How would you rate your breathing difficulty today?"
+    },
+    {
+      "id": "10",
+      "content": "How would you rate your level of dizziness today?"
+    },
+    {
+      "id": "11",
+      "content": "How would you rate your level of swelling today?"
+    },
+    {
+      "id": "12",
+      "content": "How would you rate your level of energy today?"
+    },
+    {
+      "id": "13",
+      "content": "How would you rate your level of bowel movement regularity today?"
+    },
+    {
+      "id": "14",
+      "content": "How would you rate your level of hydration today?"
+    },
+    {
+      "id": "15",
+      "content": "How would you rate your level of itching today?"
+    },
+    {
+      "id": "16",
+      "content": "How would you rate your level of muscle stiffness today?"
+    },
+    {
+      "id": "17",
+      "content": "How would you rate your level of concentration today?"
+    },
+    {
+      "id": "18",
+      "content": "How would you rate your level of joint pain today?"
+    },
+    {
+      "id": "19",
+      "content": "How would you rate your level of heart palpitations today?"
+    },
+    {
+      "id": "20",
+      "content": "How would you rate your overall satisfaction with your current treatment?"
+    }
+  ],
+  "answers": [
+    {
+      "id": "5edc7471-1ec2-4d00-9b5f-2858449a2c6f",
+      "date": "2024-06-08T18:13:04.217Z",
+      "patientId": "4",
+      "doctorId": "3",
+      "score": 97,
+      "answers": [
+        {
+          "id": "1",
+          "content": "How would you rate your overall pain today?",
+          "answer": 1
+        },
+        {
+          "id": "2",
+          "content": "How would you rate your level of fatigue today?",
+          "answer": 7
+        },
+        {
+          "id": "3",
+          "content": "How would you rate your mood today?",
+          "answer": 3
+        },
+        {
+          "id": "4",
+          "content": "How would you rate your ability to perform daily activities?",
+          "answer": 7
+        },
+        {
+          "id": "5",
+          "content": "How would you rate your sleep quality last night?",
+          "answer": 3
+        },
+        {
+          "id": "6",
+          "content": "How would you rate your appetite today?",
+          "answer": 7
+        },
+        {
+          "id": "7",
+          "content": "How would you rate your level of anxiety today?",
+          "answer": 3
+        },
+        {
+          "id": "8",
+          "content": "How would you rate your level of nausea today?",
+          "answer": 6
+        },
+        {
+          "id": "9",
+          "content": "How would you rate your breathing difficulty today?",
+          "answer": 3
+        },
+        {
+          "id": "10",
+          "content": "How would you rate your level of dizziness today?",
+          "answer": 6
+        },
+        {
+          "id": "11",
+          "content": "How would you rate your level of swelling today?",
+          "answer": 3
+        },
+        {
+          "id": "12",
+          "content": "How would you rate your level of energy today?",
+          "answer": 7
+        },
+        {
+          "id": "13",
+          "content": "How would you rate your level of bowel movement regularity today?",
+          "answer": 4
+        },
+        {
+          "id": "14",
+          "content": "How would you rate your level of hydration today?",
+          "answer": 7
+        },
+        {
+          "id": "15",
+          "content": "How would you rate your level of itching today?",
+          "answer": 3
+        },
+        {
+          "id": "16",
+          "content": "How would you rate your level of muscle stiffness today?",
+          "answer": 7
+        },
+        {
+          "id": "17",
+          "content": "How would you rate your level of concentration today?",
+          "answer": 3
+        },
+        {
+          "id": "18",
+          "content": "How would you rate your level of joint pain today?",
+          "answer": 4
+        },
+        {
+          "id": "19",
+          "content": "How would you rate your level of heart palpitations today?",
+          "answer": 7
+        },
+        {
+          "id": "20",
+          "content": "How would you rate your overall satisfaction with your current treatment?",
+          "answer": 6
+        }
+      ]
+    }
+  ]
 }
