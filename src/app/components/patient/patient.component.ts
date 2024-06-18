@@ -8,7 +8,7 @@ import {QuestionsService} from "../../services/questions.service";
 import {MatSlider, MatSliderThumb} from "@angular/material/slider";
 import {CdkScrollable} from "@angular/cdk/overlay";
 import {MatButton} from "@angular/material/button";
-import {Answer, Form} from "../../models/form.model";
+import {Answer, AnswerItem} from "../../models/form.model";
 import {FormsModule} from "@angular/forms";
 import {v4 as uuidv4} from 'uuid';
 
@@ -55,7 +55,7 @@ export class PatientComponent implements OnInit, OnDestroy {
       // Remap the questions to include the answer
       this.answers = questions.map(question => ({
         ...question,
-        answer: 5
+        answer: 0
       }));
     });
   }
@@ -67,7 +67,7 @@ export class PatientComponent implements OnInit, OnDestroy {
 
 
   approve() {
-    const form: Form  = {
+    const form: AnswerItem  = {
       id: uuidv4(),
       date: new Date().toISOString(),
       patientId: this.user.id,

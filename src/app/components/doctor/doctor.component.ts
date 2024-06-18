@@ -5,9 +5,10 @@ import {Observable, of, Subject, takeUntil} from "rxjs";
 import {UserService} from "../../services/user.service";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {AsyncPipe, DatePipe} from "@angular/common";
-import {Form} from "../../models/form.model";
+import {AnswerItem} from "../../models/form.model";
 import {MatListModule} from "@angular/material/list";
 import {MatLine} from "@angular/material/core";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-doctor',
@@ -18,7 +19,8 @@ import {MatLine} from "@angular/material/core";
     MatExpansionModule,
     MatListModule,
     MatLine,
-    DatePipe
+    DatePipe,
+    RouterLink
   ],
   templateUrl: './doctor.component.html',
   styleUrl: './doctor.component.scss'
@@ -30,7 +32,7 @@ export class DoctorComponent implements OnDestroy {
   };
 
   patients$: Observable<Patient[]> = of([]);
-  stats: Form[] = [];
+  stats: AnswerItem[] = [];
 
   get user(): Doctor {
     return this._user;
@@ -57,7 +59,7 @@ export class DoctorComponent implements OnDestroy {
     return totalScore / patientAnswers.length;
   }
 
-  getPatientAnswers(patientId: string): Form[] {
+  getPatientAnswers(patientId: string): AnswerItem[] {
     return this.stats.filter(stat => stat.patientId === patientId);
   }
 

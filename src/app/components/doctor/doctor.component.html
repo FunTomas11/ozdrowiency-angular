@@ -24,10 +24,10 @@
         </mat-expansion-panel-header>
         @if (isPatientScored(patient.id)) {
           @for (answer of getPatientAnswers(patient.id); track answer.id) {
-            <p class="result">
+            <a [routerLink]="['answers', answer.id]" class="result">
               <span>{{ answer.date | date }}</span>
               <span>Score: {{ answer.score }}</span>
-            </p>
+            </a>
           }
         }
       </mat-expansion-panel>

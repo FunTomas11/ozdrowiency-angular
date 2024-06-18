@@ -1,4 +1,4 @@
-export interface Form {
+export interface AnswerItem {
   id: string,
   date: string,
   patientId: string,

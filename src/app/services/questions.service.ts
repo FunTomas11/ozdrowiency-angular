@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment.development";
-import {Observable} from "rxjs";
-import {Form, Question} from "../models/form.model";
+import {map, Observable} from "rxjs";
+import {AnswerItem, Question} from "../models/form.model";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -18,7 +18,12 @@ export class QuestionsService {
     return this._http.get(this._questionsUrl) as Observable<Question[]>;
   }
 
-  saveAnswers(form: Form): Observable<void> {
+  saveAnswers(form: AnswerItem): Observable<void> {
     return this._http.post(this._answersUrl, form) as unknown as Observable<void>;
+  }
+
+  getAnswers(answerId: string): Observable<AnswerItem> {
+    return this._http.get<AnswerItem[]>(`${this._answersUrl}?id=${answerId}`)
+      .pipe( map( (answers: AnswerItem[]) => answers[0] ) );
   }
 }
