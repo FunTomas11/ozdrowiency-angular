@@ -9,6 +9,10 @@ import {AnswerItem} from "../../models/form.model";
 import {MatListModule} from "@angular/material/list";
 import {MatLine} from "@angular/material/core";
 import {RouterLink} from "@angular/router";
+import {MatIconButton} from "@angular/material/button";
+import {MatIcon} from "@angular/material/icon";
+import {MatCheckbox} from "@angular/material/checkbox";
+import {MatTab, MatTabGroup} from "@angular/material/tabs";
 
 @Component({
   selector: 'app-doctor',
@@ -20,7 +24,12 @@ import {RouterLink} from "@angular/router";
     MatListModule,
     MatLine,
     DatePipe,
-    RouterLink
+    RouterLink,
+    MatIconButton,
+    MatIcon,
+    MatCheckbox,
+    MatTab,
+    MatTabGroup
   ],
   templateUrl: './doctor.component.html',
   styleUrl: './doctor.component.scss'
@@ -53,10 +62,17 @@ export class DoctorComponent implements OnDestroy {
     return this.stats.some(stat => stat.patientId === patientId);
   }
 
-  getPatientAvgScore(patientId: string): number {
+  isPatientQualified(patientId: string): boolean {
+    return this.getPatientLastScore(patientId) >= 50;
+  }
+
+  getPatientLastScore(patientId: string): number {
+    return this.getPatientLastAnswer(patientId)?.score ?? 0;
+  }
+
+  getPatientLastAnswer(patientId: string): AnswerItem | null {
     const patientAnswers = this.getPatientAnswers(patientId);
-    const totalScore = patientAnswers.reduce((acc, answer) => acc + answer.score, 0);
-    return totalScore / patientAnswers.length;
+    return patientAnswers.length ? patientAnswers[0] : null;
   }
 
   getPatientAnswers(patientId: string): AnswerItem[] {
@@ -67,7 +83,9 @@ export class DoctorComponent implements OnDestroy {
     this.patients$ = this._users.getDoctorsPatients(this.user.id);
     this._users.getDoctorsStats(this.user.id)
       .pipe(takeUntil(this._destroy$))
-      .subscribe(stats => this.stats = stats);
+      .subscribe(stats => {
+        return this.stats = stats.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      });
   }
 
 }

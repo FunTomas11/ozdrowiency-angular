@@ -1,5 +1,5 @@
 export const environment = {
-    firebaseApiKey: "api_key",
+    firebaseApiKey: "AIzaSyCaOztvEqerdTqAZtJA72x50QQPiVANp6U",
     authDomain: "wspa-92329.firebaseapp.com",
     projectId: "wspa-92329",
     storageBucket: "wspa-92329.appspot.com",

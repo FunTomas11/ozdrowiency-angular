@@ -11,6 +11,7 @@ import {MatButton} from "@angular/material/button";
 import {Answer, AnswerItem} from "../../models/form.model";
 import {FormsModule} from "@angular/forms";
 import {v4 as uuidv4} from 'uuid';
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-patient',
@@ -23,7 +24,8 @@ import {v4 as uuidv4} from 'uuid';
     MatSliderThumb,
     CdkScrollable,
     MatButton,
-    FormsModule
+    FormsModule,
+    MatPaginator
   ],
   templateUrl: './patient.component.html',
   styleUrl: './patient.component.scss',
@@ -40,6 +42,7 @@ export class PatientComponent implements OnInit, OnDestroy {
 
   doctor$!: Observable<Doctor>;
   answers: Answer[] = [];
+  pagedAnswers: Answer[] = [];
 
   private _user!: Patient;
   private _destroy$ = new Subject<void>();
@@ -49,15 +52,7 @@ export class PatientComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this._questions.getQuestions()
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(questions => {
-      // Remap the questions to include the answer
-      this.answers = questions.map(question => ({
-        ...question,
-        answer: 0
-      }));
-    });
+    this._getQuestions(1);
   }
 
   ngOnDestroy(): void {
@@ -67,7 +62,8 @@ export class PatientComponent implements OnInit, OnDestroy {
 
 
   approve() {
-    const form: AnswerItem  = {
+    this.answers.push(...this.pagedAnswers);
+    const form: AnswerItem = {
       id: uuidv4(),
       date: new Date().toISOString(),
       patientId: this.user.id,
@@ -76,5 +72,32 @@ export class PatientComponent implements OnInit, OnDestroy {
       answers: this.answers
     }
     this._questions.saveAnswers(form).subscribe(() => console.log('Form saved'));
+  }
+
+  onPageChange($event: PageEvent) {
+    // Remap the questions to include the answer
+
+    this.answers.push(...this.pagedAnswers.filter((ans) => this.answers.some((a) => a.id === ans.id)));
+    console.log('Answers', this.answers)
+    this._getQuestions($event.pageIndex + 1);
+  }
+
+  private _getQuestions(page: number) {
+
+    this._questions.getQuestions(page)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(questions => {
+        if (this.answers.some((ans) => questions[0].id === ans.id)) {
+          this.pagedAnswers = questions.map(question => ({
+            ...question,
+            answer: this.answers.find((ans) => ans.id === question.id)?.answer || 0
+          }));
+          return;
+        }
+        this.pagedAnswers = questions.map(question => ({
+          ...question,
+          answer: 0
+        }));
+      });
   }
 }

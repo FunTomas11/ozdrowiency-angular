@@ -22,7 +22,7 @@
     and 10 - most corresponds to my condition by moving the slider.
     When finished, confirm the results with the “Approve” button.
   </p>
-  @for (question of answers; track question.id) {
+  @for (question of pagedAnswers; track question.id) {
     <div class="question">
       <label>{{ question.content }}</label>
       <mat-slider min="0" max="10" step="1" discrete>
@@ -31,5 +31,9 @@
     </div>
   }
 
-  <button mat-raised-button color="primary" (click)="approve()">Approve</button>
+  @if (paginator.pageIndex === 3) {
+    <button mat-raised-button color="primary" (click)="approve()">Approve</button>
+  }
+
+  <mat-paginator #paginator [length]="20" [pageSize]="5" (page)="onPageChange($event)"/>
 </div>

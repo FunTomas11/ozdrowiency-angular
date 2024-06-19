@@ -14,8 +14,11 @@ export class QuestionsService {
 
   constructor(private _http: HttpClient) { }
 
-  getQuestions(): Observable<Question[]> {
-    return this._http.get(this._questionsUrl) as Observable<Question[]>;
+  getQuestions(page = 1): Observable<Question[]> {
+    return this._http.get(this._questionsUrl + `?_page=${page}&_per_page=5`).pipe(
+      // @ts-ignore
+      map( resp => resp.data as unknown as Question[] )
+    ) as Observable<Question[]>;
   }
 
   saveAnswers(form: AnswerItem): Observable<void> {

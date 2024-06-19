@@ -1,12 +1,26 @@
 .user-area {
   display: flex;
   flex-direction: column;
-  align-items: baseline;
+  align-items: center;
   margin: 24px;
   width: fit-content;
+  background-color: #D3ECF9;
+  padding: 56px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  &__patient {
+    background-color: #d4f9d3;
+
+  }
+
+  &__name {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
 
   &__prim-info {
-    border-bottom: 1px solid #ccc;
     margin-bottom: 10px;
     padding: 6px 6px 6px 0;
   }
@@ -14,32 +28,27 @@
   &__sec-info {
     display: flex;
     flex-direction: column;
+    align-items: center;
     line-height: 22px;
     .label {
       font-size: 16px;
       font-weight: 500;
     }
   }
+
+  button {
+    margin-top: 20px
+  }
 }
 
-.surname {
-  font-size: 24px;
-  font-weight: 500;
-}
-
-.name {
-  font-size: 16px;
-  margin-left: 4px;
-}
-
-.name, .surname {
-  margin-bottom: 6px;
-}
-
-.role {
-  margin-right: 4px;
-  font-size: 18px;
-
+.info-label {
+  display: flex;
+  align-items: center;
+  span {
+    margin-left: 6px;
+    font-size: 16px;
+    line-height: 2;
+  }
 }
 
 .icon {
@@ -50,4 +59,10 @@
   color: #16bdff;
 }
 
+
+.contact-info {
+  margin-top: 50px;
+  opacity: .7;
+  font-size: 18px;
+}
 
