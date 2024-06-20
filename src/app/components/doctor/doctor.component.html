@@ -1,6 +1,6 @@
 <app-user-area [user]="user">
   <span class="specialization"><mat-icon class="material-symbols-outlined">orthopedics</mat-icon>
-  {{ user["specialization"] }}</span>
+    {{ user["specialization"] }}</span>
 </app-user-area>
 <div class="patients-container">
   <h2>
@@ -12,7 +12,7 @@
       <div class="patients">
         <mat-accordion>
           @for (patient of patients$ | async; track patient.id) {
-            <mat-expansion-panel [disabled]="!isPatientScored(patient.id)">
+            <mat-expansion-panel [matTooltip]="getPatientTooltip(patient.id)" matTooltipPosition="left" class="patients__panel" [class.patients__panel--qualified]="getPatientLastScore(patient.id) >= 50" [disabled]="!isPatientScored(patient.id)">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   {{ patient.surname }} {{ patient.name }}
@@ -111,6 +111,7 @@
                   }
                 }
               </mat-expansion-panel>
+
             }
           } @empty {
             <span>You have no assigned patients yet</span>

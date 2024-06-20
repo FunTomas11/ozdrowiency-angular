@@ -15,8 +15,12 @@
   max-height: 80%;
   padding: 12px;
 
+  &__panel--qualified {
+    background-color: rgba(95, 241, 110, 0.17);
+  }
 
-  a {
+
+  .result {
     text-decoration: none;
     color: #000;
     background-color: transparent;

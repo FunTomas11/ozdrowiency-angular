@@ -13,6 +13,7 @@ import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-doctor',
@@ -29,7 +30,8 @@ import {MatTab, MatTabGroup} from "@angular/material/tabs";
     MatIcon,
     MatCheckbox,
     MatTab,
-    MatTabGroup
+    MatTabGroup,
+    MatTooltip
   ],
   templateUrl: './doctor.component.html',
   styleUrl: './doctor.component.scss'
@@ -46,6 +48,7 @@ export class DoctorComponent implements OnDestroy {
   get user(): Doctor {
     return this._user;
   }
+
 
   private _destroy$ = new Subject<void>();
   private _user!: Doctor;
@@ -77,6 +80,14 @@ export class DoctorComponent implements OnDestroy {
 
   getPatientAnswers(patientId: string): AnswerItem[] {
     return this.stats.filter(stat => stat.patientId === patientId);
+  }
+
+  getPatientTooltip(patientId: string): string {
+    const lastAnswer = this.getPatientLastAnswer(patientId);
+    if (lastAnswer && lastAnswer?.score >= 50) {
+      return `Patient qualified for a visit`;
+    }
+    return '';
   }
 
   private _init(): void {
