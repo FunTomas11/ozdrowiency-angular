@@ -75,29 +75,31 @@ export class PatientComponent implements OnInit, OnDestroy {
   }
 
   onPageChange($event: PageEvent) {
-    // Remap the questions to include the answer
 
-    this.answers.push(...this.pagedAnswers.filter((ans) => this.answers.some((a) => a.id === ans.id)));
+    this.pushIfNotExists(this.answers, this.pagedAnswers);
     console.log('Answers', this.answers)
     this._getQuestions($event.pageIndex + 1);
   }
 
   private _getQuestions(page: number) {
-
     this._questions.getQuestions(page)
       .pipe(takeUntil(this._destroy$))
       .subscribe(questions => {
-        if (this.answers.some((ans) => questions[0].id === ans.id)) {
-          this.pagedAnswers = questions.map(question => ({
-            ...question,
-            answer: this.answers.find((ans) => ans.id === question.id)?.answer || 0
-          }));
-          return;
-        }
+        const answerMap = new Map(this.answers.map(ans => [ans.id, ans.answer]));
+
         this.pagedAnswers = questions.map(question => ({
           ...question,
-          answer: 0
+          answer: answerMap.get(question.id) || 0
         }));
       });
+  }
+
+
+  pushIfNotExists(targetArray: any, sourceArray: any) {
+    sourceArray.forEach((element: any) => {
+      if (!targetArray.find((el: any) => el.id === element.id)) {
+        targetArray.push(element);
+      }
+    });
   }
 }
