@@ -4,6 +4,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatButton} from "@angular/material/button";
 import {NgClass} from "@angular/common";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-user-area',
@@ -19,4 +20,10 @@ export class UserAreaComponent {
   protected readonly UserRole = UserRole;
   @Input({required: true}) user!: UserDetails;
 
+  constructor(private _auth: AuthService) {
+  }
+
+  logout() {
+    this._auth.clearUser();
+  }
 }

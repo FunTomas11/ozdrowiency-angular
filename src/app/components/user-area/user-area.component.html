@@ -1,29 +1,9 @@
 <div class="user-area" [ngClass]="{'user-area__patient' : user.role === UserRole.Patient}">
-  <!--  <mat-icon class="material-symbols-outlined icon" [matTooltip]="user.role" [matTooltipPosition]="'above'">-->
-  <!--    @switch (user.role) {-->
-  <!--      @case (UserRole.Doctor) {-->
-  <!--        <span>account_circle</span>-->
-  <!--      }-->
-  <!--      @case (UserRole.Patient) {-->
-  <!--        <span>person</span>-->
-  <!--      }-->
-  <!--    }-->
-  <!--  </mat-icon>-->
   <img class="profile-image"
        src="{{ user.role === UserRole.Doctor ? 'assets/images/doctor.png' : 'assets/images/patient.png' }}"
        alt="User icon">
   <div class="user-area__prim-info">
-    <!--    <span class="role">-->
-    <!--      @switch (user.role) {-->
-    <!--        @case (UserRole.Doctor) {-->
-    <!--          <span>Doctor</span>-->
-    <!--        }-->
-    <!--        @case (UserRole.Patient) {-->
-    <!--          <span>Patient</span>-->
-    <!--        }-->
-    <!--      }-->
-    <!--      <span>: </span>-->
-    <!--    </span>-->
+
     <span class="user-area__name">
     @if (user.role === UserRole.Doctor) {
       <span>Dr </span>
@@ -39,7 +19,7 @@
     <span class="info-label"><mat-icon>mail</mat-icon><span>{{ user.email }}</span></span>
     <span class="info-label"><mat-icon>phone</mat-icon><span>{{ user.phone }}</span></span>
   </div>
-  <button mat-flat-button color="primary">
+  <button mat-flat-button color="primary" (click)="logout()">
     <mat-icon>logout</mat-icon>
     <span>Logout</span>
   </button>

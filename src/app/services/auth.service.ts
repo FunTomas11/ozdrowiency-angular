@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {User} from "firebase/auth";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class AuthService {
   // private _user: User | null | any = null;
   private _user: User | null | any = { uid: '5'};
 
-  constructor() {}
+  constructor(private _router: Router) {}
 
   // Method to set user data
   setUser(userData: User): void {
@@ -28,5 +29,6 @@ export class AuthService {
   // Method to clear user data (logout)
   clearUser(): void {
     this._user = null;
+    this._router.navigate(['/login']);
   }
 }
