@@ -23,4 +23,9 @@ export enum UserRole {
   Patient = 'patient'
 }
 
+export interface User  {
+  sessionId: string,
+  user: UserDetails
+}
+
 export type GenericUser = Doctor | Patient;

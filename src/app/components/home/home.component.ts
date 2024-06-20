@@ -1,8 +1,7 @@
 import {Component} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
-import {User} from "firebase/auth";
 import {UserService} from "../../services/user.service";
-import {GenericUser, UserRole} from "../../models/user.model";
+import {GenericUser, User, UserRole} from "../../models/user.model";
 import {PatientComponent} from "../patient/patient.component";
 import {DoctorComponent} from "../doctor/doctor.component";
 import {Router} from "@angular/router";
@@ -34,7 +33,7 @@ export class HomeComponent {
   constructor(private _auth: AuthService, private _service: UserService, _router: Router) {
     const userData: User | null = this._auth.getUser();
     if (userData) {
-      this._user = this._service.getUserDetails(userData.uid);
+      this._user = this._service.getUserDetails(userData.user.id);
     } else {
       _router.navigate(['/login']);
       throw new Error('User not logged in');
