@@ -1,10 +1,13 @@
 @if (answer$  | async; as question) {
   <div class="answer-details">
     <div class="answer-details__general general-info">
-      <div class="general-info__date">{{ question.date }}</div>
-      <div class="general-info__avg">{{ question.score }}</div>
+      <div class="general-info__date">
+        <span class="general-info__label">Date of filling: </span>{{ question.date | date }}</div>
+      <div class="general-info__avg">
+        <span class="general-info__label">Average score: </span>{{ question.score }}</div>
     </div>
-    <div class="answer-details__content">
+    <mat-divider />
+    <div class="answer-details__content" content>
       <ul class="content__list">
         @for (answer of question.answers; track answer.id) {
           <li class="content__item">

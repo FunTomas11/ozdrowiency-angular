@@ -3,7 +3,8 @@ import {ActivatedRoute} from '@angular/router';
 import {QuestionsService} from '../../services/questions.service';
 import {Observable} from 'rxjs';
 import {AnswerItem} from '../../models/form.model';
-import {AsyncPipe, NgForOf, NgIf} from "@angular/common"; // Adjust the import according to your project structure
+import {AsyncPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
+import {MatDivider} from "@angular/material/divider"; // Adjust the import according to your project structure
 
 @Component({
   standalone: true,
@@ -13,7 +14,9 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common"; // Adjust the import a
   imports: [
     AsyncPipe,
     NgIf,
-    NgForOf
+    NgForOf,
+    DatePipe,
+    MatDivider
   ]
 })
 export class AnswerDetailsComponent implements OnInit {
