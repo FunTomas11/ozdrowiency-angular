@@ -1,9 +1,7 @@
 <div class="container">
-  <h4>Please login or register to use app</h4>
+  <h4>Please login to use app</h4>
   <div class="content">
-    <h2 mat-dialog-title>Login/Register</h2>
-    <mat-tab-group>
-      <mat-tab label="Login">
+    <h2 mat-dialog-title>Login</h2>
         <form [formGroup]="loginForm" (submit)="login()">
           <mat-form-field appearance="outline">
             <input matInput placeholder="Email" formControlName="email">
@@ -13,18 +11,5 @@
           </mat-form-field>
           <button mat-raised-button color="primary" type="submit">Login</button>
         </form>
-      </mat-tab>
-      <mat-tab label="Register">
-        <form [formGroup]="loginForm" (submit)="register()">
-          <mat-form-field appearance="outline">
-            <input matInput placeholder="Email" formControlName="email">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <input matInput type="password" placeholder="Password" formControlName="password">
-          </mat-form-field>
-          <button mat-raised-button color="primary" type="submit">Register</button>
-        </form>
-      </mat-tab>
-    </mat-tab-group>
   </div>
 </div>

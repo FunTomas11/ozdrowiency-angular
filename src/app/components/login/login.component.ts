@@ -28,11 +28,4 @@ export class LoginComponent {
       this.firebaseService.loginUser(email as string, password as string);
     }
   }
-
-  register() {
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      this.firebaseService.registerUser(email as string, password as string);
-    }
-  }
 }
