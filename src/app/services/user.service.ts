@@ -25,4 +25,8 @@ export class UserService {
   getDoctorsStats(doctorId: string): Observable<AnswerItem[]> {
     return this._http.get<AnswerItem[]>(`${this._apiUrl}/answers?doctorId=${doctorId}`);
   }
+
+  getUserStats(userId: string): Observable<AnswerItem[]> {
+    return this._http.get<AnswerItem[]>(`${this._apiUrl}/answers?patientId=${userId}`);
+  }
 }

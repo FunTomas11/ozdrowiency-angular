@@ -10,30 +10,44 @@
   @if (doctor$ | async; as doctor) {
     <span>
     <span class="label">Doctor's name: </span>
-    <span>{{ doctor.surname }} {{ doctor.name }}</span>
+    <span>Dr. {{ doctor.name }} {{ doctor.surname }} </span>
   </span>
   }
 </app-user-area>
-<div class="questions" cdkScrollable>
-  <h2>Please answer the following questions</h2>
-  <p class="info">
-    Please assess your condition and answer 20 questions to verify your health.
-    Each question should be answered with a response on a scale of 0 to 10 where 0 - least corresponds to my condition
-    and 10 - most corresponds to my condition by moving the slider.
-    When finished, confirm the results with the “Approve” button.
-  </p>
-  @for (question of pagedAnswers; track question.id) {
-    <div class="question">
-      <label>{{ question.content }}</label>
-      <mat-slider min="0" max="10" step="1" discrete>
-        <input matSliderThumb [(ngModel)]="question.answer">
-      </mat-slider>
-    </div>
-  }
 
-  @if (paginator.pageIndex === 3) {
-    <button mat-raised-button color="primary" (click)="approve()">Approve</button>
-  }
+@if (alreadyAnswered) {
+  <div class="all-set">
+    <h2>You're all set!</h2>
+    <mat-icon class="material-symbols-outlined all-set__icon">
+      check_circle
+    </mat-icon>
+    <p class="info">
+      You filled out all the necessary forms during this period! <br> Thank you for your cooperation.
+    </p>
+  </div>
+} @else {
+  <div class="questions" cdkScrollable>
+    <h2>Please answer the following questions</h2>
+    <p class="info">
+      Please assess your condition and answer 20 questions to verify your health.
+      Each question should be answered with a response on a scale of 0 to 10 where 0 - least corresponds to my condition
+      and 10 - most corresponds to my condition by moving the slider.
+      When finished, confirm the results with the “Approve” button.
+    </p>
+    @for (question of pagedAnswers; track question.id) {
+      <div class="question">
+        <label>{{ question.content }}</label>
+        <mat-slider min="0" max="10" step="1" discrete>
+          <input matSliderThumb [(ngModel)]="question.answer">
+        </mat-slider>
+      </div>
+    }
 
-  <mat-paginator #paginator [length]="20" [pageSize]="5" (page)="onPageChange($event)"/>
-</div>
+    @if (paginator.pageIndex === 3) {
+      <button mat-raised-button color="primary" (click)="approve()">Approve</button>
+    }
+
+    <mat-paginator #paginator [length]="20" [pageSize]="5" (page)="onPageChange($event)"/>
+  </div>
+}
+

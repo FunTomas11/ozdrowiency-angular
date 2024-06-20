@@ -12,6 +12,10 @@ import {Answer, AnswerItem} from "../../models/form.model";
 import {FormsModule} from "@angular/forms";
 import {v4 as uuidv4} from 'uuid';
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {MatIcon} from "@angular/material/icon";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-patient',
@@ -25,7 +29,8 @@ import {MatPaginator, PageEvent} from "@angular/material/paginator";
     CdkScrollable,
     MatButton,
     FormsModule,
-    MatPaginator
+    MatPaginator,
+    MatIcon
   ],
   templateUrl: './patient.component.html',
   styleUrl: './patient.component.scss',
@@ -34,6 +39,9 @@ export class PatientComponent implements OnInit, OnDestroy {
   @Input() set user(userData: GenericUser) {
     this._user = userData as Patient;
     this.doctor$ = this._userService.getUserDetails(this.user.doctorId) as Observable<Doctor>;
+    this._userService.getUserStats(this.user.id).subscribe(answers => {
+      this.alreadyAnswered = this._isAlreadyAnswered(answers);
+    })
   };
 
   get user(): Patient {
@@ -43,11 +51,16 @@ export class PatientComponent implements OnInit, OnDestroy {
   doctor$!: Observable<Doctor>;
   answers: Answer[] = [];
   pagedAnswers: Answer[] = [];
+  alreadyAnswered: boolean = false;
 
   private _user!: Patient;
   private _destroy$ = new Subject<void>();
 
-  constructor(private _userService: UserService, private _questions: QuestionsService) {
+  constructor(private _userService: UserService,
+              private _questions: QuestionsService,
+              private _dialog: MatDialog,
+              private _snack: MatSnackBar
+  ) {
 
   }
 
@@ -62,22 +75,29 @@ export class PatientComponent implements OnInit, OnDestroy {
 
 
   approve() {
-    this.answers.push(...this.pagedAnswers);
-    const form: AnswerItem = {
-      id: uuidv4(),
-      date: new Date().toISOString(),
-      patientId: this.user.id,
-      doctorId: this.user.doctorId,
-      score: this.answers.reduce((acc, curr) => acc + curr.answer, 0),
-      answers: this.answers
-    }
-    this._questions.saveAnswers(form).subscribe(() => console.log('Form saved'));
+    this._dialog.open(ConfirmationDialogComponent).afterClosed().subscribe((result) => {
+      if (result) {
+        this.answers.push(...this.pagedAnswers);
+        const form: AnswerItem = {
+          id: uuidv4(),
+          date: new Date().toISOString(),
+          patientId: this.user.id,
+          doctorId: this.user.doctorId,
+          score: this.answers.reduce((acc, curr) => acc + curr.answer, 0),
+          answers: this.answers
+        }
+        this._questions.saveAnswers(form).subscribe(() => {
+          this.alreadyAnswered = true;
+          this._snack.open('Answer sent successfully', 'Close', {
+            duration: 2000
+          });
+        });
+      }
+    });
   }
 
   onPageChange($event: PageEvent) {
-
     this.pushIfNotExists(this.answers, this.pagedAnswers);
-    console.log('Answers', this.answers)
     this._getQuestions($event.pageIndex + 1);
   }
 
@@ -86,7 +106,6 @@ export class PatientComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe(questions => {
         const answerMap = new Map(this.answers.map(ans => [ans.id, ans.answer]));
-
         this.pagedAnswers = questions.map(question => ({
           ...question,
           answer: answerMap.get(question.id) || 0
@@ -101,5 +120,10 @@ export class PatientComponent implements OnInit, OnDestroy {
         targetArray.push(element);
       }
     });
+  }
+
+  private _isAlreadyAnswered(answers: AnswerItem[]) {
+    const lastAnswer = answers.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
+    return new Date().getTime() - new Date(lastAnswer.date).getTime() < 1000 * 60 * 60 * 24 * 14;
   }
 }

@@ -29,4 +29,5 @@ export class QuestionsService {
     return this._http.get<AnswerItem[]>(`${this._answersUrl}?id=${answerId}`)
       .pipe( map( (answers: AnswerItem[]) => answers[0] ) );
   }
+
 }
