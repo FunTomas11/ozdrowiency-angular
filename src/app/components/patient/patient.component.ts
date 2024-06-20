@@ -123,7 +123,12 @@ export class PatientComponent implements OnInit, OnDestroy {
   }
 
   private _isAlreadyAnswered(answers: AnswerItem[]) {
+    if (answers.length === 0) {
+      return false;
+    }
+
     const lastAnswer = answers.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
+
     return new Date().getTime() - new Date(lastAnswer.date).getTime() < 1000 * 60 * 60 * 24 * 14;
   }
 }

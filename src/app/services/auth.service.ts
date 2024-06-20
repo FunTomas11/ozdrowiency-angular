@@ -25,21 +25,29 @@ export class AuthService {
   // Method to set user data
   setUser(userData: User): void {
     this._user = userData;
+    sessionStorage.setItem('user', JSON.stringify(userData));
   }
 
   // Method to get user data
   getUser(): User | null {
+    if (this._user === null) {
+      const user = sessionStorage.getItem('user');
+      if (user) {
+        this._user = JSON.parse(user);
+      }
+    }
     return this._user;
   }
 
   // Method to check if user is logged in
   isLoggedIn(): boolean {
-    return this._user !== null;
+    return this.getUser() !== null;
   }
 
   // Method to clear user data (logout)
   clearUser(): void {
     this._user = null;
+    sessionStorage.removeItem('user');
     this._router.navigate(['/login']);
   }
 }
