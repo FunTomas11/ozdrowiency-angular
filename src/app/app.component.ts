@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {FirebaseService} from './services/firebase.service';
-import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MatDialogModule} from "@angular/material/dialog";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButton} from "@angular/material/button";
 
@@ -13,11 +13,6 @@ import {MatButton} from "@angular/material/button";
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent{
 
-  constructor(private firebaseService: FirebaseService, private _dialog: MatDialog) {}
-
-  ngOnInit() {
-
-  }
 }
