@@ -9,10 +9,10 @@ import {HttpClient} from "@angular/common/http";
 })
 export class QuestionsService {
 
-  private readonly _questionsUrl = 'https://api-dot-medisurvey.lm.r.appspot.com' + '/questions';
+  private readonly _questionsUrl = environment.apiUrl + '/questions';
   private readonly _answersUrl = environment.apiUrl + '/answers';
 
-  constructor(private _http: HttpClient) { 
+  constructor(private _http: HttpClient) {
     console.log('Questions URL:', this._questionsUrl);
     console.log('Answers URL:', this._answersUrl);
   }
