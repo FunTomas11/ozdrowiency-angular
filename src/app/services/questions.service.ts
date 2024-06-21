@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {environment} from "../../environments/environment.development";
+import {environment} from "../../environments/environment";
 import {map, Observable} from "rxjs";
 import {AnswerItem, Question} from "../models/form.model";
 import {HttpClient} from "@angular/common/http";
@@ -9,10 +9,13 @@ import {HttpClient} from "@angular/common/http";
 })
 export class QuestionsService {
 
-  private readonly _questionsUrl = environment.apiUrl + '/questions';
+  private readonly _questionsUrl = 'https://api-dot-medisurvey.lm.r.appspot.com' + '/questions';
   private readonly _answersUrl = environment.apiUrl + '/answers';
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) { 
+    console.log('Questions URL:', this._questionsUrl);
+    console.log('Answers URL:', this._answersUrl);
+  }
 
   getQuestions(page = 1): Observable<Question[]> {
     return this._http.get(this._questionsUrl + `?_page=${page}&_per_page=5`).pipe(

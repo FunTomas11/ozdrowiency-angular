@@ -1,0 +1,22 @@
+runtime: nodejs22
+
+instance_class: F2
+
+handlers:
+  - url: /static
+    static_dir: dist/ozdrowiency-angular/browser
+
+  - url: /
+    static_files: dist/ozdrowiency-angular/browser/index.html
+    upload: dist/ozdrowiency-angular/browser/index.html
+
+  - url: /login
+    static_files: dist/ozdrowiency-angular/browser/index.html
+    upload: dist/ozdrowiency-angular/browser/index.html
+
+  - url: /(.*)
+    static_files: dist/ozdrowiency-angular/browser/\1
+    upload: dist/ozdrowiency-angular/browser/(.*)
+
+env_variables:
+  NODE_ENV: 'production'

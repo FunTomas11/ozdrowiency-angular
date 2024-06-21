@@ -5,6 +5,7 @@ export const environment = {
     storageBucket: "wspa-92329.appspot.com",
     messagingSenderId: "863043329392",
     appId: "1:863043329392:web:78e073d6518f5872a683b5",
-    production: false,
-    apiUrl: 'http://localhost:3000',
+    production: true,
+    apiUrl: 'https://api-dot-medisurvey.lm.r.appspot.com',
+    buildVersion: '6.6.6'
 };
