@@ -29,18 +29,6 @@ export class AnswerDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.answer$ = this._questions.getAnswers(this._answerId);
-    this.answer$.subscribe(
-      data => {
-        console.log('Data received:', data);
-      },
-      error => {
-        console.error('Error:', error);
-      }
-    );
   }
 
-  stringify(data: any): string {
-    console.log('Data:', data)
-    return JSON.stringify(data, null, 2);
-  }
 }
