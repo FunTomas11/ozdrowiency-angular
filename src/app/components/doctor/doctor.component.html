@@ -8,7 +8,7 @@
     <mat-divider/>
   </h2>
   <mat-tab-group class="patients-group">
-    <mat-tab label="Wszyscy" class="inactive">
+    <mat-tab label="All">
       <div class="patients">
         <mat-accordion>
           @for (patient of patients$ | async; track patient.id) {
@@ -19,16 +19,23 @@
                 </mat-panel-title>
                 <mat-panel-description>
                   @if (isPatientScored(patient.id)) {
-                    <span>Last score: </span>
-                    <span>{{ getPatientLastScore(patient.id) }}</span>
+                    <div class="patients-description">
+                      <span>Last form:
+                      <span>{{ getPatientLastAnswer(patient.id)?.date | date }}</span>
+                      </span>
+                      <span>Last score:
+                      <span>{{ getPatientLastScore(patient.id) }}</span>
+                      </span>
+                    </div>
                   } @else {
                     <span>Patient has not sent any replies yet</span>
                   }
                 </mat-panel-description>
               </mat-expansion-panel-header>
               @if (isPatientScored(patient.id)) {
-                @for (answer of getPatientAnswers(patient.id); track answer.id) {
+                @for (answer of getPatientAnswers(patient.id); track answer.id; let i = $index) {
                   <a [routerLink]="['answers', answer.id]" class="result">
+                    <span>{{ getPatientAnswers(patient.id).length - i }}</span>
                     <span>{{ answer.date | date }}</span>
                     <span>Score: {{ answer.score }}</span>
                   </a>
@@ -41,7 +48,7 @@
         </mat-accordion>
       </div>
     </mat-tab>
-    <mat-tab label="Zakwalifikowani">
+    <mat-tab label="Qualified">
       <div class="patients">
         <mat-accordion>
           @for (patient of patients$ | async; track patient.id) {
@@ -53,16 +60,23 @@
                   </mat-panel-title>
                   <mat-panel-description>
                     @if (isPatientScored(patient.id)) {
-                      <span>Last score: </span>
+                      <div class="patients-description">
+                      <span>Last form:
+                      <span>{{ getPatientLastAnswer(patient.id)?.date | date }}</span>
+                      </span>
+                        <span>Last score:
                       <span>{{ getPatientLastScore(patient.id) }}</span>
+                      </span>
+                      </div>
                     } @else {
                       <span>Patient has not sent any replies yet</span>
                     }
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 @if (isPatientScored(patient.id)) {
-                  @for (answer of getPatientAnswers(patient.id); track answer.id) {
+                  @for (answer of getPatientAnswers(patient.id); track answer.id; let i = $index) {
                     <a [routerLink]="['answers', answer.id]" class="result">
+                      <span>{{ getPatientAnswers(patient.id).length - i }}</span>
                       <span>{{ answer.date | date }}</span>
                       <span>Score: {{ answer.score }}</span>
                     </a>
@@ -76,7 +90,7 @@
         </mat-accordion>
       </div>
     </mat-tab>
-    <mat-tab label="Niezakwalifikowani">
+    <mat-tab label="Unqualified">
       <div class="patients">
         <mat-accordion>
           @for (patient of patients$ | async; track patient.id) {
