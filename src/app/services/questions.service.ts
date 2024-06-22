@@ -29,7 +29,7 @@ export class QuestionsService {
   }
 
   getAnswers(answerId: string): Observable<AnswerItem> {
-    return this._http.get<AnswerItem[]>(`${this._answersUrl}?id=${answerId}`)
+    return this._http.get<AnswerItem[]>(`${this._answersUrl}/${answerId}`)
       .pipe( map( (answers: AnswerItem[]) => answers[0] ) );
   }
 
